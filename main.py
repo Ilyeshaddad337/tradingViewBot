@@ -1,7 +1,6 @@
 
 import time
 
-from twilio.twiml.messaging_response import MessagingResponse
 from flask import Flask, request
 import config
 from handler import send_alert, send_message_alert
@@ -83,27 +82,7 @@ def webhook():
 def hello():
     return '<h1>Your Bot Is alive</h1>'
 
-@app.route("/whatsapp_bot",methods =["POST"])
-def whatsapp_bot():
-    try:
-        user_msg = request.values.get('Body', '').lower()
 
-        # creating object of MessagingResponse
-        response = MessagingResponse()
-        if user_msg in ['hello','hi']:
-            response.message(f"Hi this is ilyes's BOT !\nHow can I help You ?")
-        else:
-            response.message(f"Sorry I didn't understand that !")
-
-
-
-        data = {"key": "","telegram": "-768784032","msg": f"This message is sent: {user_msg}"}
-        send_alert(data)
-        return str(response) ,200
-
-    except Exception as e:
-        print("[X]", get_timestamp(), "Error:\n>", e)
-        return "Error", 400
 
 
 
